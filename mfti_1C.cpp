@@ -10,22 +10,22 @@ typedef long long ll;
 int main() {
     ll n;
     cin >> n;
-    vector<ll> arr(n);
+    vector<ll> arr(n, 1);
     for (int i = 0; i < n; ++i) {
         cin >> arr[i];
     }
 
-    vector<ll> dp(n);
+    vector<ll> dp(n, 1);
     dp[0] = 1;
-    ll mx = 0;
-    for (int i = 1; i < n; ++i) {
+    ll mx = 1;
+    for (int i = 0; i < n; ++i) {
         for (int j = i - 1; j >= 0; --j) {
             if (arr[j] < arr[i]){
-                dp[i]++;
+                dp[i] = max(dp[i], dp[j] + 1);
             }
-            if (mx < dp[i]){
-                mx = dp[i];
-            }
+        }
+        if (dp[i] > mx){
+            mx = dp[i];
         }
     }
     cout << mx << '\n';
