@@ -1,6 +1,7 @@
 //
 // Created by Lev Skuratov on 17.08.2022.
-// https://official.contest.yandex.ru/contest/39328/problems/A3/
+// https://official.contest.yandex.ru/contest/39328/problems/B3/
+
 
 #include <bits/stdc++.h>
 
@@ -22,40 +23,33 @@ int main(){
         cin >> a >> b;
         --a, --b;
         if (who[b] != who[a]){
-            g[a].push_back({b, 1});
-            g[b].push_back({a, 1});
+            g[a].push_back({b, 1 * (1 + a % 2)});
+            g[b].push_back({a, 1 * (1 + b % 2)});
         } else {
             g[a].push_back({b, 0});
             g[b].push_back({a, 0});
         }
     }
 
-    deque<ll> q;
-    vector<ll> d(n, -1);
+    set<pair<ll, ll>> s;
+    vector<ll> d(n, 1e9 + 666);
     vector<ll> p(n);
-    vector<ll> used(n);
-    q.push_front(0);
     d[0] = 0;
-    vector<ll> output;
-    while (q.size() > 0){
-        ll v = q.front();
-        q.pop_front();
-        used[v] = 1;
-        for (auto [i, w] : g[v]) {
-            if (!used[i]){
-                if (w == 0){
-                    q.push_front(i);
-                    d[i] = d[v];
-                } else if (w == 1){
-                    q.push_back(i);
-                    d[i] = d[v] + 1;
-                }
-
-                used[i] = 1;
+    s.insert({0, 0});
+    while (s.size() > 0){
+        ll v = s.begin() -> second;
+        s.erase(s.begin());
+        for (auto [i, w] : g[v]){
+            if (d[v] + w < d[i]){
+                s.erase({d[i], i});
+                d[i] = d[v] + w;
+                s.insert({d[i], i});
                 p[i] = v;
             }
         }
     }
+
+    vector<ll> output;
     output.push_back(n - 1);
     ll v = n - 1;
     for (int i = n - 1; i > 0; i = p[i]) {

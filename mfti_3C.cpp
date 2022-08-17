@@ -3,7 +3,6 @@
 // https://official.contest.yandex.ru/contest/39328/problems/C3/
 
 #include <iostream>
-#include <deque>
 #include <vector>
 
 using namespace std;
@@ -12,34 +11,29 @@ typedef long long ll;
 
 
 int main(){
-    int n, m;
-    cin >> n >> m;
-    vector<vector<pair<ll, ll>>> g(n);
-    vector<ll> who(n);
+    int n, s, f;
+    cin >> n >> s >> f;
+    s--;f--;
+    vector<vector<pair<ll, ll>>> g(n, vector<pair<ll, ll>> (n));
     for (int i = 0; i < n; ++i) {
-        cin >> who[i];
-    }
-    for (int i = 0; i < m; ++i) {
-        int a, b;
-        cin >> a >> b;
-        --a, --b;
-        if (who[b] != who[a]){
-            g[a].push_back({b, 1});
-        } else {
-            g[a].push_back({b, 0});
+        for (int j = 0; j < n; ++j) {
+            int c;
+            cin >> c;
+            g[i][j].second = c;
+            g[i][j].first = j;
         }
     }
+    
 
-    deque<ll> q;
-    vector<ll> d(n, -1);
+    vector<ll> d(n, 1e9 + 228);
     vector<ll> used(n);
 
-    d[0] = 0;
+    d[s] = 0;
     while (true){
         int v = -1;
         for (int i = 0; i < n; ++i){
             if (!used[i]){
-                if (v == -1 || d[i] < d[v]){
+                if (v == -1 || d[i] < d[v] ){
                     v = i;
                 }
             }
@@ -49,10 +43,14 @@ int main(){
         }
         used[v] = 1;
         for (auto [i, w] : g[v]){
-            if (d[i] > d[v] + w){
+            if (w > -1 && d[i] > d[v] + w){
                 d[i] = d[v] + w;
             }
         }
     }
-    cout << *min_element(d.begin(), d.end()) << ' ' << '\n';
+    if (d[f] > 1e9){
+        cout << -1;
+        return 0;
+    }
+    cout << d[f];
 }
