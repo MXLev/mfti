@@ -7,15 +7,8 @@
 
 using namespace std;
 typedef long double ld;
+typedef long long ll;
 
-int main() {
-    int n;
-    cin >> n;
-    vector<int> tree(n);
-    for (int i = 0; i < n; ++i) {
-        cin >> tree[i];
-    }
-    int m;
-    cin >> m;
-    
+int main(){
+
 }
