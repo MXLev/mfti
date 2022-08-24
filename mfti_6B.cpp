@@ -4,29 +4,24 @@
 
 #include <bits/stdc++.h>
 
-
 using namespace std;
 
 int main(){
     int t;
     cin >> t;
+    set<int> s;
+    for (int i = 1; i <= 200000; ++i){
+        s.insert(i);
+    }
     for (int q = 0; q < t; ++q) {
-        vector<bool> arr;
         int a;
         cin >> a;
-        int last = arr[arr.size() - 1];
         if (a > 0){
-            for (int i = 0; i < arr.size(); ++i) {
-                if (i < arr.size() && arr[i]){
-                    arr[i] = true;
-                    break;
-                } else if (i >= arr.size()){
-                    arr.resize(i + 1);
-                    arr[i] = true;
-                    break;
-                }
-            }
-        } else {
+            auto b = s.lower_bound(a);
+            cout << *b << '\n';
+            s.erase(b);
+        } else if (a < 0 && a < *s.begin()){
+            s.insert(abs(a));
         }
     }
 }
