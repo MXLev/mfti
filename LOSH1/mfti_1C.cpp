@@ -18,6 +18,7 @@ int main() {
     vector<ll> dp(n, 1);
     dp[0] = 1;
     ll mx = 1;
+
     for (int i = 0; i < n; ++i) {
         for (int j = i - 1; j >= 0; --j) {
             if (arr[j] < arr[i]){
