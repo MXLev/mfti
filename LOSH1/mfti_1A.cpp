@@ -1,6 +1,6 @@
 //
 // Created by Lev Skuratov on 15.08.2022.
-// https://official.contest.yandex.ru/contest/39328/problems/
+// https://official.contest.yandex.ru/cinontest/39328/problems/
 
 #include <iostream>
 #include <vector>
