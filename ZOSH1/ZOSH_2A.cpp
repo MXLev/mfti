@@ -5,10 +5,10 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-typedef long long ll;
+typedef unsigned long long ll;
 
 vector<ll> arr;
-ll sum(vector<ll> &arr1){
+void sum(vector<ll> &arr1){
     arr[0] = arr1[0];
     for (int i = 1; i < arr.size(); ++i) {
         arr[i] = arr[i - 1] + arr1[i];
@@ -16,29 +16,26 @@ ll sum(vector<ll> &arr1){
 }
 
 int main(){
-    ios_base::sync_with_stdio(0);
+    ios_base::sync_with_stdio(false);
     cin.tie(0);
-    int n, m;
-    int x, y, a;
+    ll n, m;
+    ll x, y, a;
     int z, t, b;
 
     cin >> n >> x >> y >> a;
-    vector<ll> arrA(4 * n);
-    arrA[0] = a;
+    vector<ll> arrA(n);
     arr.resize(4 * n);
-    for (int i = 1; i <= n; ++i){
+    for (int i = 0; i < n; ++i){
         // a[i] = a
-        a = (a * x + y) & ((1 << 16) - 1);
-        arrA[i] = x * arrA[i - 1] + y;
+        arrA[i] = (a * x + y) & ((1 << 16) - 1);
     }
     sum(arrA);
 
     ll res = 0;
     cin >> m >> z >> t >> b;
-    vector<ll> arrB(4 * max(n, m));
-    vector<ll> arrC(4 * max(n, m));
-    arrB[0] = b;
-    for (int i = 1; i <= m; ++i) {
+    vector<ll> arrB(max(n, m));
+    vector<ll> arrC(max(n, m));
+    for (int i = 0; i < m; ++i) {
         ll l = b % n;
         b = (b * z + t) & ((1 << 30) - 1);
         ll r = b % n;
@@ -46,9 +43,7 @@ int main(){
         if (l > r){
             swap(l, r);
         }
-        arrB[i] = z * arrB[i - 1] + t;
-        arrC[i] = arrB[i] % n;
-        res += arr[min(arrC[2 * i], arrC[2 * i + 1])]  - arr[max(arrC[2 * i], arrC[2* i + 1])];
+        res += arr[r] - arr[l];
     }
     cout << res << '\n';
 }
