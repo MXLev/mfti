@@ -7,13 +7,13 @@
 using namespace std;
 typedef long long ll;
 
-vector<vector<ll>> arr;
+vector<vector<ll>> prefCum;
 vector<char> w;
 
 int main(){
     int n;
     cin >> n;
-    arr.resize(n);
+    prefCum.resize(n);
     vector<char> temp(n);
     for (int i = n - 1; i <= 0; --i) {
         cin >> temp[i];

@@ -32,7 +32,7 @@ int main() {
     for (int i = 0; i < a ; ++i){
 
     }
-    //int b[arr];
+    //int b[prefCum];
     //int c[] = {1, 2, 3, 4};
     vector<int> arr;
     arr.push_back(a);
@@ -48,8 +48,8 @@ int main() {
     }
 
     sort(arr.begin(), arr.end());
-    //(arr, b) = (b, arr) == swap(arr, b)
-    //arr**b == pow(arr, b)
+    //(prefCum, b) = (b, prefCum) == swap(prefCum, b)
+    //prefCum**b == pow(prefCum, b)
     max_element(arr.begin(), arr.end());
 
     double qwer = 0;

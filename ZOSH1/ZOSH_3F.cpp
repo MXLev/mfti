@@ -27,9 +27,8 @@ ll norm(ll a){
     return a;
 }
 
-bool isEqual(ll a, ll b, ll c, ll d){
-    ll first = 0, second = 0;
-    first = h[a] * powB[a];
+bool isEqual(ll a, ll b, ll c, ll d) {
+    return h[b] == h[d];
 }
 
 vector<long long> build(string a) {

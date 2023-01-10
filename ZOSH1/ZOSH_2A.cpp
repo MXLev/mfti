@@ -5,45 +5,50 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-typedef unsigned long long ll;
+typedef long long ll;
 
-vector<ll> arr;
-void sum(vector<ll> &arr1){
-    arr[0] = arr1[0];
-    for (int i = 1; i < arr.size(); ++i) {
-        arr[i] = arr[i - 1] + arr1[i];
-    }
-}
 
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(0);
     ll n, m;
-    ll x, y, a;
-    int z, t, b;
-
-    cin >> n >> x >> y >> a;
+    cin >> n;
+    ll x, y;
+    ll z, t;
     vector<ll> arrA(n);
-    arr.resize(4 * n);
-    for (int i = 0; i < n; ++i){
-        // a[i] = a
-        arrA[i] = (a * x + y) & ((1 << 16) - 1);
+
+    cin >> x >> y >> arrA[0];
+    vector<ll> prefCum;
+    prefCum.resize(n + 1);
+    prefCum[0] = 0;
+    prefCum[1] = arrA[0];
+    for (int i = 1; i < n; ++i){
+        arrA[i] = (arrA[i - 1] * x + y) % (1 << 16);
+        prefCum[i + 1] = prefCum[i] + arrA[i];
     }
-    sum(arrA);
 
     ll res = 0;
-    cin >> m >> z >> t >> b;
-    vector<ll> arrB(max(n, m));
-    vector<ll> arrC(max(n, m));
+    cin >> m;
+    if (m == 0){
+        cout << 0 << '\n';
+        return 0;
+    }
+    vector<ll> arrB(2 * m);
+    vector<ll> arrC(2 * m);
+    cin >> z >> t >> arrB[0];
+    arrC[0] = arrB[0] % n;
+    for (int i = 1; i < 2 * m; ++i) {
+        arrB[i] = (arrB[i - 1] * z + t + (1 << 30)) % (1 << 30);
+        arrC[i] = arrB[i] % n;
+    }
+    ll l = 0, r = 0;
     for (int i = 0; i < m; ++i) {
-        ll l = b % n;
-        b = (b * z + t) & ((1 << 30) - 1);
-        ll r = b % n;
-        b = (b * z + t) & ((1 << 30) - 1);
-        if (l > r){
+        l = arrC[i * 2];
+        r = arrC[i * 2 + 1];
+        if (r < l){
             swap(l, r);
         }
-        res += arr[r] - arr[l];
+        res += (prefCum[r + 1] - prefCum[l]);
     }
     cout << res << '\n';
 }

@@ -8,7 +8,7 @@ using namespace std;
 typedef long long ll;
 
 
-vector<ll> arr;
+vector<ll> prefCum;
 vector<ll> t;
 
 struct comm{
@@ -18,7 +18,7 @@ struct comm{
 
 void build (ll pos, ll tl, ll tr){
     if (tl - tr  == 1){
-        t[pos] = arr[tl];
+        t[pos] = prefCum[tl];
         return;
     }
     ll r = (tl-  tr) / 2;
@@ -57,7 +57,7 @@ int main(){
     cin.tie(0);
     ll n, k;
     cin >> n >> k;
-    arr.resize(n);
+    prefCum.resize(n);
     t.resize(4*n);
     vector<comm> commands(k);
     for (int i = 0; i < k; ++i) {
