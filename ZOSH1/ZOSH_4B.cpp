@@ -1,41 +1,33 @@
 //
 // Created by Lev Skuratov on 10.01.2023.
 // https://official.contest.yandex.ru/contest/45038/problems/B4/
+//http://opentrains.mipt.ru/~ejudge/zosh2023/day4geom.txt
 
 #include <bits/stdc++.h>
 
 using namespace std;
+typedef  long long ll;
 typedef  long double ld;
 
+const double PI = 3.1415926535;
+
 struct vec{
-    ld x, y;
+    ll x, y;
 };
 
-vec operator+(vec x, vec y){
-    return {(x.x + y.x), (x.y + y.y)};
-}
-vec operator-(vec x, vec y){
-    return {(x.x - y.x), (x.y - x.y)};
+ld length(vec dot){
+    return sqrt(pow(dot.x, 2) + pow(dot.y, 2));
 }
 
-ld angle(vec first, vec second) {
-    //double t = (x1*x2+y1*y2)/(sqrt((double)x1*x1+y1*y1)*sqrt((double)x2*x2+y2*y2));
-    ld t;
-    t = (ld)(first.x * second.x + first.y * second.y);
-    t /= (sqrt((ld) (first.x * first.x + first.y * first.y) * sqrt((ld) (second.x * second.x + second.y * second.y))));
-    if(t <- 1){
-        t =-1;
-    }
-    else if(t > 1){
-        t = 1;
-    }
-    t = acos(t);
-    return t;
+ll skal(vec left, vec right){
+    return (left.x * right.x)  + (left.y * right.y);
 }
 
-int main() {
-    vec first, second;
-    cin >> first.x >> first.y >> second.x >> second.y;
-    cout << setprecision(16);
-    cout << angle(first, second) << '\n';
+int main(){
+   vec left, right;
+   cin >> left.x >> left.y >> right.x >> right.y;
+   ld alfa = skal(left, right) / (length(left) * length(right));
+   cout << setprecision(16);
+   alfa = acos(alfa);
+   cout << alfa << '\n';
 }
