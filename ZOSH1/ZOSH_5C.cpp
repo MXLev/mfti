@@ -7,44 +7,57 @@
 using namespace std;
 typedef long long ll;
 
-struct towns{
-    ll weight;
-    vector<ll> related;
-};
+ll const INF = 1e9-7;
 
-vector<towns> arr;
+vector<vector<pair<ll, ll>>> arr;
+vector<vector<ll>> path;
+ll minCost = INF;
 
-ll bfs (ll val){
-    if (arr.size() <= val){
-        return val;
-    }
-    for (int i = 0; i < arr[val].related.size(); ++i) {
-        arr[i].weight = bfs(val + 1);
+void bfs(int s, ll n) {
+    vector<ll> dist(n, INF);
+    dist[s] = 0;
+    deque<ll> pending;
+    pending.push_back(s);
+    vector<bool> used(n);
+    path.resize(n);
+
+    while (!pending.empty()) {
+        ll v = pending.front();
+        pending.pop_front();
+        for (auto&& [to, w] : arr[v]) {
+            if (dist[to] > dist[v] + w) {
+                dist[to] = dist[v] + w;
+                minCost = min(minCost, dist[to]);
+                path[to] = path[v];
+                path[to].push_back(v);
+                if (w == 0) {
+                    pending.push_front(to);
+                } else {
+                    pending.push_back(to);
+                }
+            }
+        }
     }
 }
 
-int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(0);
+int main(){
     ll n, m;
     cin >> n >> m;
-    deque<ll> dek;
     arr.resize(n);
+    vector<int> temp(n);
     for (int i = 0; i < n; ++i) {
-        cin >> arr[i].weight;
-        arr[i].weight--;
-        if (arr[i].weight){
-            dek.push_back(arr[i].weight);
-        } else {
-            dek.push_front(arr[i].weight);
-        }
+        cin >> temp[i];
+        temp[i]--;
     }
+    for (int i = 0; i < m; ++i){
+        ll a, b;
+        cin >> a >> b;
+        arr[a].push_back({b, temp[i]});
+    }
+    bfs(0, n);
 
-    for (int i = 0; i < m; ++i) {
-        ll townA, townB;
-        cin >> townA >> townB;
-        townA--;townB--;
-        arr[townA].related.push_back(townB);
-        arr[townB].related.push_back(townA);
-    }
+    cout << minCost << ' ' << path[n - 1].size() << '\n';
+//    for (int i = 0; i < path.size(); ++i) {
+//        cout << path[n - 1][i];
+//    }
 }
