@@ -1,4 +1,4 @@
-//
+    //
 // Created by Lev Skuratov on 06.01.2023.
 // https://official.contest.yandex.ru/contest/45039/problems/B1/
 

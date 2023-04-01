@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.22)
+cmake_minimum_required(VERSION 3.21.1)
 project(mfti)
 
 set(CMAKE_CXX_STANDARD 23)
@@ -71,3 +71,7 @@ add_executable(ZOSH_TeamOlimpD ZOSH1/ZOSH_TeamOlimpD.cpp)
 add_executable(ZOSH_TeamOlimpE ZOSH1/ZOSH_TeamOlimpE.cpp)
 add_executable(ZOSH_TeamOlimpH ZOSH1/ZOSH_TeamOlimpH.cpp)
 add_executable(ZOSH_TeamOlimpG ZOSH1/ZOSH_TeamOlimpG.cpp)
+add_executable(Test_lOSH2A testLosh2/testLosh2A.cpp)
+add_executable(Test_lOSH2B testLosh2/testLosh2B.cpp)
+add_executable(Test_lOSH2C testLosh2/_testLosh2C.cpp)
+add_executable(Test_lOSH2D testLosh2/_testLosh2D.cpp)
